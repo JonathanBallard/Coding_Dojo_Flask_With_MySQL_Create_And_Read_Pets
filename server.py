@@ -7,22 +7,38 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    mysql = connectToMySQL("first_flask")
-    friends = mysql.query_db("SELECT * FROM friends;")
-    print(friends)
-    return render_template("index.html", all_friends = friends)
+    mysql = connectToMySQL("create_and_read_pets")
+    pets = mysql.query_db("SELECT * FROM pets;")
+    print(pets)
+    return render_template("index.html", all_pets = pets)
             
-@app.route("/create_friend", methods=["POST"])
+@app.route("/create_pet", methods=["POST"])
 def add_friend_to_db():
     print(request.form)
-    mysql = connectToMySQL("first_flask")
-    query = "INSERT INTO friends (first_name, last_name, occupation, created_at, updated_at) VALUES (%(fn)s, %(ln)s, %(occup)s, NOW(), NOW());"
+    mysql = connectToMySQL("create_and_read_pets")
+    query = "INSERT INTO pets (name, type, created_at, updated_at) VALUES (%(name)s, %(type)s, NOW(), NOW());"
     data = {
-        "fn": request.form['fname'],
-        "ln": request.form['lname'],
-        "occup": request.form['occ']
+        "name": request.form['name'],
+        "type": request.form['type']
     }
-    new_friend_id = mysql.query_db(query, data)
+    new_pet_id = mysql.query_db(query, data)
+
+
+
+    # SQL INJECTION
+
+    # mysql = connectToMySQL("create_and_read_pets")
+    # name = request.form['name']
+    # typeA = request.form['type']
+    # query = f"INSERT INTO pets (name, type, created_at, updated_at) VALUES ({name}, {typeA}, NOW(), NOW());"
+    # new_pet_id = mysql.query_db(query)
+
+
+
+
+
+
+    
     return redirect("/")
     # QUERY: INSERT INTO first_flask (first_name, last_name, occupation, created_at, updated_at) 
     #                         VALUES (fname from form, lname from form, occupation from form, NOW(), NOW());

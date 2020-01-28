@@ -10,22 +10,22 @@
     <title>Create and Read Pets</title>
 </head>
 <body>
-<h1>TEST</h1>
+<h1>Create and Read Pets</h1>
 
-<h1>All My Friends</h1>
-{% for one_friend in all_friends %}
-    <p>First Name: {{one_friend["first_name"]}}</p>
-    <p>Last Name: {{one_friend["last_name"]}}</p>
-    <p>Occupation: {{one_friend["occupation"]}}</p>
+<h1>All Pets</h1>
+{% for pet in all_pets %}
+    <p>ID: {{pet["id"]}}</p>
+    <p>Name: {{pet["name"]}}</p>
+    <p>Type: {{pet["type"]}}</p>
     <hr>
 {% endfor %}
-
-<h1>Add a Friend</h1>
-<form action="/create_friend" method="POST">
-    <p>First Name: <input type="text" name="fname"></p>
-    <p>Last Name: <input type="text" name="lname"></p>
-    <p>Occupation: <input type="text" name="occ"></p>
-    <input type="submit" value="Add Friend">
+<hr>
+<hr>
+<h1>Add a Pet!</h1>
+<form action="/create_pet" method="POST">
+    <p>Name: <input type="text" name="name"></p>
+    <p>Type: <input type="text" name="type"></p>
+    <input type="submit" value="Add Pet">
 </form>
 
 
